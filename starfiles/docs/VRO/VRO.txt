@@ -1,0 +1,686 @@
+Valorant Reversal Offsets
+
+January 24, 2026 @ 01:36 PM EST | Patch 12.01
+
+Reminder: UE5 uses doubles not floats (FVector, FRotator, etc)
+(Also only a few of these have been tested some might be wrong.)
+
+Core Engine
+
+Code:
+
+    GWorld           = 0xBBDD670
+    FNamePool        = 0xBD618C0
+    FNameState       = 0xBF464C0
+    ProcessEvent     = 0x1A07EC0
+    FMemoryMalloc    = 0x15B8010
+    TriggerVeh       = 0x161BD76
+
+
+Key Functions
+
+Code:
+
+    BoneMatrix       = 0x3F3B960
+    SetOutlineMode   = 0x3ECFE40
+    GetSpreadValues  = 0x5F91C00
+    GetSpreadAngles  = 0x6ABB020
+    GetFiringLoc     = 0x66D8B40
+    VecNormalize     = 0x16E3A40
+    AngleNormalize   = 0x16DE240
+    StaticFindObject = 0x1A326E0
+    StaticLoadObject = 0x1A36210
+
+
+Player & Actor
+
+Code:
+
+    ActorArray       = 0x00A0
+    TeamId           = 0x00E8
+    TeamComponent    = 0x06A8
+    WasAlly          = 0x0F19
+    CharacterMinimap = 0x1508
+    PlayerState      = 0x0480
+    RootComponent    = 0x0288
+    RelativeLocation = 0x0170
+    LocalPlayer      = 0x0040
+    CameraManager    = 0x0520
+    CameraPrivate    = 0x17B0
+    CameraPos        = 0x0384
+    CameraFOV        = 0x03A2
+    CameraRot        = 0x0396
+    MaxShield        = 0x10E0
+    PlatformPlayer   = 0x06A0
+    CompetitiveTier  = 0x06C0
+    AccountLevel     = 0x069C
+    GetPing          = 0x0464
+
+
+Bones & Mesh
+
+Code:
+
+    ComponentToWorld = 0x02D0
+    BoneArray        = 0x0730
+    BoneArrayCache   = 0x0740
+    BoneCount        = 0x05D0
+    Mesh1P           = 0x0EE8
+    Mesh1POverlay    = 0x0EF0
+    Mesh3P           = 0x0EF8
+    Mesh3PMids       = 0x0F40
+    Mesh1PMids       = 0x0F50
+    MeshCosmetic3P   = 0x0EF8
+
+Drawing Abilities Bounds
+
+In your UObject loop, after filtering for relevant entities:
+
+
+Code:
+
+    template<typename T>
+    T* AActor::GetChildComponentByClass(UClass* class_)
+    {
+        return Mem::CallVirtual<T*, 232>(this, class_);
+    }
+     
+    // define these by just using find object.
+    USphereComponent::StaticClass() // Engine.SphereComponent
+    Engine.SphereComponent.GetScaledSphereRadius() // Engine.SphereComponent.GetScaledSphereRadius
+    UBoxComponent::StaticClass() // Engine.BoxComponent
+    UBoxComponent::GetScaledBoxExtent() // Engine.BoxComponent.GetScaledBoxExtent
+    AActor::GetLocation() // Engine.Actor.K2_GetActorLocation
+    AActor::GetRotation() // Engine.Actor.K2_GetActorRotation
+     
+    auto sphereComponent =
+        actor->GetChildComponentByClass<USphereComponent>(
+            USphereComponent::StaticClass()
+        );
+     
+    if (sphereComponent)
+    {
+        FVector origin = actor->GetLocation();
+        float radius = sphereComponent->GetScaledSphereRadius();
+     
+        DrawSphereOutline(origin, radius, Color_t(0, 255, 0, 150), 48);
+    }
+     
+    auto boxComponent =
+        actor->GetChildComponentByClass<UBoxComponent>(
+            UBoxComponent::StaticClass()
+        );
+     
+    if (boxComponent)
+    {
+        FVector origin = actor->GetLocation();
+        FRotator rotation = actor->GetRotation();
+        FVector extent = boxComponent->GetScaledBoxExtent();
+     
+        DrawBoxOutline(origin, extent, rotation, Color_t(0, 255, 0, 150));
+    }
+
+
+Draw it in 3D using the pipeline of your choice.
+
+Keep in mind this approach is naive and will break if an actor has more than one
+box component or sphere component. It can be improved by having each object
+defined and accessing the relevant members directly.
+
+
+Example
+
+
+
+Credits to @ji666 for this code.
+
+Weapon & Inventory
+
+Code:
+
+    Inventory            = 0x0BF8
+    CurrentEquippable    = 0x0E30
+    Mesh1PGun            = 0x0E08
+    Mesh3PGun            = 0x0E18
+    FiringStateComponent = 0x1230
+    SeedData             = 0x04B0
+    StabilityComponent   = 0x0490
+    ErrorPower           = 0x049C
+    ErrorRetries         = 0x0470
+
+
+FName Decryption
+
+Text encryption is currently ENABLED. Here's the full setup:
+
+Step 1: XOR Key Decryption Routine
+
+Code:
+
+    uint64_t decrypt_xor_keys(const uint32_t key, const uint64_t* state)
+    {
+        uint64_t v3 = 0x2545F4914F6CDD1Di64
+            * ((uint32_t)key ^ (((uint32_t)key ^ ((uint64_t)(uint32_t)key >> 15)) >> 12) ^ (uint32_t)(key << 25));
+     
+        uint64_t idx = v3 % 7;
+        uint64_t v5 = state[idx];
+        uint64_t v6 = v3 >> 32;
+        uint32_t mod7 = (uint32_t)idx % 7;
+     
+        if (mod7 == 0)
+        {
+            uint64_t v8 = ((v5 >> 1) ^ ((v5 >> 1) ^ (2 * v5)) & 0xAAAAAAAAAAAAAAAAui64) >> 1;
+            v5 = v8 ^ (v8 ^ (2 * ((v5 >> 1) ^ ((v5 >> 1) ^ (2 * v5)) & 0xAAAAAAAAAAAAAAAAui64))) & 0xAAAAAAAAAAAAAAAAui64;
+        }
+        else if (mod7 == 1)
+        {
+            v5 = ~((v5 << (63 * (uint8_t)(((int)v6 + 2 * (int)idx) / 0x3F) - ((uint8_t)v6 + 2 * (uint8_t)idx) + 63))
+                | (v5 >> ((uint8_t)(((int)v6 + 2 * (int)idx) % 0x3F) + 1)));
+        }
+        else if (mod7 == 2)
+        {
+            uint64_t tmp = (uint32_t)(v6 + 2 * idx) + v5;
+            v5 = (tmp >> ((uint8_t)(((int)v6 + (int)idx) % 0x3F) + 1))
+                | (tmp << (63 * (uint8_t)(((int)v6 + (int)idx) / 0x3F) - ((uint8_t)v6 + (uint8_t)idx) + 63));
+        }
+        else if (mod7 == 3)
+        {
+            uint64_t tmp = v5 - (uint32_t)(v6 + 2 * idx);
+            uint64_t v38 = ((tmp >> 1) ^ ((tmp >> 1) ^ (2 * tmp)) & 0xAAAAAAAAAAAAAAAAui64) >> 2;
+            uint64_t v39 = v38 ^ (v38 ^ (4 * ((tmp >> 1) ^ ((tmp >> 1) ^ (2 * tmp)) & 0xAAAAAAAAAAAAAAAAui64))) & 0xCCCCCCCCCCCCCCCCui64;
+            uint64_t v40 = (v39 >> 4) ^ ((v39 >> 4) ^ (16 * v39)) & 0xF0F0F0F0F0F0F0F0ui64;
+            v5 = __ROR8__((v40 >> 8) ^ ((v40 >> 8) ^ (v40 << 8)) & 0xFF00FF00FF00FF00ui64, 32);
+        }
+        else if (mod7 == 4)
+        {
+            v5 += (uint32_t)(v6 + 2 * idx) - (uint64_t)(uint32_t)(v6 + idx);
+        }
+        else if (mod7 == 5)
+        {
+            uint64_t tmp = v5 - (uint32_t)(v6 + 2 * idx);
+            v5 = (tmp >> ((uint8_t)(((int)v6 + (int)idx) % 0x3F) + 1))
+                | (tmp << (63 * (uint8_t)(((int)v6 + (int)idx) / 0x3F) - ((uint8_t)v6 + (uint8_t)idx) + 63));
+        }
+        else if (mod7 == 6)
+        {
+            v5 = ~((v5 << ((uint8_t)(((int)v6 + 2 * (int)idx) % 0x3F) + 1))
+                | (v5 >> (63 * (uint8_t)(((int)v6 + 2 * (int)idx) / 0x3F) - ((uint8_t)v6 + 2 * (uint8_t)idx) + 63)));
+        }
+     
+        return v5 ^ (uint32_t)key;
+    }
+
+Step 2: Get XOR Key at Startup
+
+Code:
+
+    bool decrypt_name_key(uintptr_t valorant_base, uintptr_t* returned_xor)
+    {
+        uintptr_t namepoolkey = read<uintptr_t>(valorant_base + names_key);
+        if (!namepoolkey) return false;
+     
+        struct state {
+            uintptr_t keys[7];
+        };
+     
+        state xor_state = read<state>(valorant_base + names_state);
+        const auto address = decrypt_xor_keys(namepoolkey, (uintptr_t*)&xor_state);
+        uintptr_t xors = read<uintptr_t>(address);
+     
+        if (xors) {
+            *returned_xor = xors;
+            return true;
+        }
+        return false;
+    }
+     
+    // Call once at startup
+    uintptr_t names_key = FNameState + 0x38;
+    decrypt_name_key(game_base, &xor_key);
+
+Step 3: Decrypt FName
+
+Code:
+
+    std::string get_fname(int key)
+    {
+        uint chunkOffset = (uint)((int)(key) >> 16);
+        ushort nameOffset = (ushort)key;
+        
+        std::uint64_t namePoolChunk = read<std::uint64_t>(
+            base + FNamePool + ((chunkOffset + 2) * 8)
+        );
+        
+        std::uint64_t entryOffset = namePoolChunk + (ulong)(4 * nameOffset);
+        FNameEntry nameEntry = read<FNameEntry>(entryOffset);
+        
+        auto name = nameEntry.AnsiName;
+        std::uintptr_t nameKey = xor_key;
+        
+        if (nameEntry.Header.Len <= 365) {
+            for (std::uint16_t i = 0; i < nameEntry.Header.Len; i++) {
+                BYTE b = i & 3;
+                name[i] ^= nameEntry.Header.Len ^ *((LPBYTE)&nameKey + b);
+            }
+        }
+        
+        return name;
+    }
+     
+    // Get FName ID from actor
+    uintptr_t fname_id = actor + 0x18;
+
+For 12.01 FName Decryption Credits to @weloveoverprice
+
+Rendering
+
+Code:
+
+    K2DrawText       = 0x459E57C
+    K2DrawLine       = 0x6DE70E9
+    K2DrawBox        = 0x6D0ED60
+    SetOutlineColors = 0x3639E89
+    EnemyColor       = 0x5384EE9
+    AllyColor        = 0x5384EE2
+    MarkDirtyRender  = 0x159F240
+
+
+Memory & Decryption
+
+Code:
+
+    FMemoryMalloc    = 0x15B8010
+    FreeMem          = 0x69ABDD
+    DecryptWide      = 0x4914100
+    DecryptNonWide   = 0x4914090
+    SkinDecrypt      = 0x34D9120
+
+
+Skin Changer
+
+Code:
+
+    SkinPointer1     = 0x3A0
+    SkinPointer2     = 0x0B0
+    SkinPointer3     = 0x080
+    SkinDataAssets   = 0xDC8
+
+
+Misc Offsets
+
+Code:
+
+    OwningGameInstance = 0x01D8
+    DefusePercentage   = 0x05D0
+    BombTimeRemaining  = 0x05A8
+    ViewportWorld      = 0x0078
+    UWorldPointer      = 0x0080
+    DrawTransition     = 0x0068
+    RealTimeDormant    = 0x0101
+    InventoryIcon      = 0x0EB0
+
+CustomSkinLoader
+Code:
+
+    // ScriptStruct CoreUObject.Color
+    // 0x0004 (0x0004 - 0x0000)
+    struct alignas(0x04) FColor final
+    {
+    public:
+    	uint8_t                                       B;                                                 // 0x0000(0x0001)(Edit, BlueprintVisible, ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+    	uint8_t                                       G;                                                 // 0x0001(0x0001)(Edit, BlueprintVisible, ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+    	uint8_t                                       R;                                                 // 0x0002(0x0001)(Edit, BlueprintVisible, ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+    	uint8_t                                       A;                                                 // 0x0003(0x0001)(Edit, BlueprintVisible, ZeroConstructor, SaveGame, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+    };
+    static_assert(alignof(FColor) == 0x000004, "Wrong alignment on FColor");
+    static_assert(sizeof(FColor) == 0x000004, "Wrong size on FColor");
+    static_assert(offsetof(FColor, B) == 0x000000, "Member 'FColor::B' has a wrong offset!");
+    static_assert(offsetof(FColor, G) == 0x000001, "Member 'FColor::G' has a wrong offset!");
+    static_assert(offsetof(FColor, R) == 0x000002, "Member 'FColor::R' has a wrong offset!");
+    static_assert(offsetof(FColor, A) == 0x000003, "Member 'FColor::A' has a wrong offset!");
+     
+    // ScriptStruct ProceduralMeshComponent.ProcMeshTangent
+    // 0x0020 (0x0020 - 0x0000)
+    struct FProcMeshTangent final
+    {
+    public:
+    	fvector                                       TangentX;                                          // 0x0000(0x0018)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+    	bool                                          bFlipTangentY;                                     // 0x0018(0x0001)(Edit, BlueprintVisible, ZeroConstructor, IsPlainOldData, NoDestructor, HasGetValueTypeHash, NativeAccessSpecifierPublic)
+    	uint8_t                                       Pad_19[0x7];                                       // 0x0019(0x0007)(Fixing Struct Size After Last Property [ Dumper-7 ])
+    };
+    static_assert(alignof(FProcMeshTangent) == 0x000008, "Wrong alignment on FProcMeshTangent");
+    static_assert(sizeof(FProcMeshTangent) == 0x000020, "Wrong size on FProcMeshTangent");
+    static_assert(offsetof(FProcMeshTangent, TangentX) == 0x000000, "Member 'FProcMeshTangent::TangentX' has a wrong offset!");
+    static_assert(offsetof(FProcMeshTangent, bFlipTangentY) == 0x000018, "Member 'FProcMeshTangent::bFlipTangentY' has a wrong offset!");
+     
+     
+    struct MeshData {
+      TArray<FVector> Vertices;
+      TArray<int32_t> Triangles;
+      TArray<FVector> Normals;
+      TArray<FVector2D> UV0;
+      TArray<FColor> VertexColors;
+      TArray<FProcMeshTangent> Tangents;
+    };
+     
+    MeshData ParseOBJFile(const char* filepath) {
+      MeshData data;
+     
+      std::ifstream file(filepath);
+      if (!file.is_open()) {
+        //printf("[-] Failed to open OBJ file: %s\n", filepath);
+        return data;
+      }
+     
+      std::vector<FVector> temp_vertices;
+      std::vector<FVector2D> temp_uvs;
+      std::vector<FVector> temp_normals;
+     
+      std::string line;
+      while (std::getline(file, line)) {
+        std::istringstream iss(line);
+        std::string type;
+        iss >> type;
+     
+        if (type == "v") {
+          // Vertex position
+          float x, y, z;
+          iss >> x >> y >> z;
+          temp_vertices.push_back(FVector(x * 100.0f, y * 100.0f, z * 100.0f)); // Scale to UE units
+        }
+        else if (type == "vt") {
+          // UV coordinate
+          float u, v;
+          iss >> u >> v;
+          temp_uvs.push_back(FVector2D(u, 1.0f - v)); // Flip V for UE
+        }
+        else if (type == "vn") {
+          // Normal
+          float x, y, z;
+          iss >> x >> y >> z;
+          temp_normals.push_back(FVector(x, y, z));
+        }
+        else if (type == "f") {
+          // Face (triangle)
+          // Format: f v1/vt1/vn1 v2/vt2/vn2 v3/vt3/vn3
+          std::string v1, v2, v3;
+          iss >> v1 >> v2 >> v3;
+     
+          // Parse indices
+          auto parse_face_vertex = [&](const std::string& vert_data) {
+            std::istringstream vss(vert_data);
+            std::string index_str;
+            int v_idx = 0, vt_idx = 0, vn_idx = 0;
+     
+            // Parse v/vt/vn format
+            std::getline(vss, index_str, '/');
+            v_idx = std::stoi(index_str) - 1; // OBJ is 1-indexed
+     
+            std::getline(vss, index_str, '/');
+            if (!index_str.empty()) vt_idx = std::stoi(index_str) - 1;
+     
+            std::getline(vss, index_str, '/');
+            if (!index_str.empty()) vn_idx = std::stoi(index_str) - 1;
+     
+            // Add to arrays
+            int current_index = data.Vertices.Num();
+            data.Vertices.Add(temp_vertices[v_idx]);
+     
+            if (vt_idx >= 0 && vt_idx < temp_uvs.size()) {
+              data.UV0.Add(temp_uvs[vt_idx]);
+            }
+            else {
+              data.UV0.Add(FVector2D(0, 0));
+            }
+     
+            if (vn_idx >= 0 && vn_idx < temp_normals.size()) {
+              data.Normals.Add(temp_normals[vn_idx]);
+            }
+            else {
+              data.Normals.Add(FVector(0, 0, 1));
+            }
+     
+            data.VertexColors.Add(FColor(255, 255, 255, 255));
+     
+            return current_index;
+            };
+     
+          int i1 = parse_face_vertex(v1);
+          int i2 = parse_face_vertex(v2);
+          int i3 = parse_face_vertex(v3);
+     
+          // Add triangle indices
+          data.Triangles.Add(i1);
+          data.Triangles.Add(i2);
+          data.Triangles.Add(i3);
+        }
+      }
+     
+      file.close();
+     
+      // Generate tangents if needed
+      for (int i = 0; i < data.Vertices.Num(); i++) {
+        FProcMeshTangent tangent;
+        tangent.TangentX = FVector(1, 0, 0);
+        tangent.bFlipTangentY = false;
+        data.Tangents.Add(tangent);
+      }
+     
+      //printf("[+] Loaded mesh: %d vertices, %d triangles\n",
+        //data.Vertices.Num(), data.Triangles.Num() / 3);
+     
+      return data;
+    }
+     
+    bool meshcreated = false;
+    void ReplaceWeaponMeshWith3DModel(AAresEquippable* Weapon, const char* objFilePath) {
+      if (!Weapon || !Weapon->GetMesh1P()) {
+        printf("[-] Invalid weapon\n");
+        return;
+      }
+     
+      printf("\n=== Replacing 1P Weapon Mesh ===\n");
+      {
+     
+      static UClass* ProcMeshClass = nullptr;
+      if (!ProcMeshClass {
+        ProcMeshClass = UObject::find_object<UClass>(
+          L"ProceduralMeshComponent.ProceduralMeshComponent"
+        );
+     
+        static UObject* AddComponentFunc = UObject::find_object<UObject>(
+          L"ShooterGame.ShooterBlueprintLibrary.AddComponentByClass"
+        );
+        if (!AddComponentFunc) return;
+     
+        struct {
+          AActor* Actor;
+          UActorComponent* ComponentClass;
+          UActorComponent* ReturnValue;
+        } Params = { (AActor*)Weapon, (UActorComponent*)ProcMeshClass, nullptr };
+     
+        UObject::ProcessEvent(classes::defines::blueprint, AddComponentFunc, &Params);
+        auto* ProcMesh = (UProceduralMeshComponent*)Params.ReturnValue;
+     
+        if (!ProcMesh) return;
+     
+        printf("[+] Created procedural mesh: 0x%p\n", ProcMesh);
+     
+        // Load mesh
+        MeshData weaponMesh = ParseOBJFile(objFilePath);
+        if (weaponMesh.Vertices.Num() == 0) return;
+     
+        printf("[+] Loaded: %d verts, %d tris\n", weaponMesh.Vertices.Num(), weaponMesh.Triangles.Num() / 3);
+     
+        // Fix normals
+        for (auto& normal : weaponMesh.Normals) {
+          normal = normal * -1.0f;
+        }
+     
+        // Reverse triangle winding
+        for (int i = 0; i < weaponMesh.Triangles.Num(); i += 3) {
+          int32_t temp = weaponMesh.Triangles[i + 1];
+          weaponMesh.Triangles[i + 1] = weaponMesh.Triangles[i + 2];
+          weaponMesh.Triangles[i + 2] = temp;
+        }
+     
+        // Set vertex colors
+        if (weaponMesh.VertexColors.Num() == 0) {
+          for (int i = 0; i < weaponMesh.Vertices.Num(); i++) {
+            weaponMesh.VertexColors.Add(FColor(255, 255, 255, 255));
+          }
+        }
+     
+        // Create mesh section
+        static UObject* CreateMeshFunc = UObject::find_object<UObject>(
+          L"ProceduralMeshComponent.ProceduralMeshComponent.CreateMeshSection"
+        );
+        if (!CreateMeshFunc) return;
+     
+        struct {
+          int32_t SectionIndex;
+          TArray<FVector> Vertices;
+          TArray<int32_t> Triangles;
+          TArray<FVector> Normals;
+          TArray<FVector2D> UV0;
+          TArray<FColor> VertexColors;
+          TArray<FProcMeshTangent> Tangents;
+          bool bCreateCollision;
+        } CreateParams = {
+          0, weaponMesh.Vertices, weaponMesh.Triangles, weaponMesh.Normals,
+          weaponMesh.UV0, weaponMesh.VertexColors, weaponMesh.Tangents, false
+        };
+     
+        ProcMesh->ProcessEvent_(CreateMeshFunc, &CreateParams);
+        printf("[+] Mesh section created\n");
+      }
+     
+      auto* OriginalMesh = Weapon->GetMesh1P();
+     
+      // Copy material
+      static UObject* GetMaterialFunc = UObject::find_object<UObject>(
+        L"Engine.MeshComponent.GetMaterial"
+      );
+     
+      if (GetMaterialFunc) {
+        struct { int32_t ElementIndex; UMaterialInterface* ReturnValue; } GetMatParams = { 0, nullptr };
+        OriginalMesh->ProcessEvent_(GetMaterialFunc, &GetMatParams);
+     
+        if (GetMatParams.ReturnValue) {
+          static UObject* SetMaterialFunc = UObject::find_object<UObject>(
+            L"Engine.MeshComponent.SetMaterial"
+          );
+          if (SetMaterialFunc) {
+            struct { int32_t ElementIndex; UMaterialInterface* Material; } SetMatParams = { 0, GetMatParams.ReturnValue };
+            ProcMesh->ProcessEvent_(SetMaterialFunc, &SetMatParams);
+            printf("[+] Material applied\n");
+          }
+        }
+      }
+     
+      // Attach to weapon
+      static UObject* AttachFunc = UObject::find_object<UObject>(
+        L"Engine.SceneComponent.K2_AttachToComponent"
+      );
+      FName [removed] = kismentsystemlibrary::string_to_name(L"R_WeaponPoint");
+      if (AttachFunc) {
+        struct {
+          USceneComponent* Parent;
+          FAttachmentTransformRules AttachmentRules;
+          FName SocketName;
+        } AttachParams = {
+          (USceneComponent*)OriginalMesh,
+          FAttachmentTransformRules::SnapToTargetNotIncludingScale,
+          [removed] // Attach to root - R_WeaponPoint socket is on the skeleton
+        };
+        ProcMesh->ProcessEvent_(AttachFunc, &AttachParams);
+        printf("[+] Attached to weapon\n");
+      }
+     
+      // Adjust transform
+      printf("[*] Adjusting transform...\n");
+     
+     
+      // Rotate 90 degrees (adjust as needed for your model)
+      ProcMesh->SetRelativeRotation(FRotator(0, -90, 0), false, true);
+     
+      // Adjust position if needed
+      static UObject* SetRelativeLocationFunc = UObject::find_object<UObject>(
+        L"Engine.SceneComponent.K2_SetRelativeLocation"
+      );
+      if (SetRelativeLocationFunc) {
+        struct {
+          FVector NewLocation;
+          bool bSweep;
+          FHitResult SweepHitResult;
+          bool bTeleport;
+        } LocParams = { FVector(0, 0, 0), false, FHitResult(), false };
+        ProcMesh->ProcessEvent_(SetRelativeLocationFunc, &LocParams);
+      }
+     
+      // Adjust scale if needed
+      ProcMesh->SetRelativeScale3D(FVector(1, 1, 1));
+     
+      printf("[+] Transform set\n");
+     
+      // Hide original, show new
+      static UObject* SetVisibilityFunc = UObject::find_object<UObject>(
+        L"Engine.SceneComponent.SetVisibility"
+      );
+     
+      if (SetVisibilityFunc) {
+        struct { bool bNewVisibility; bool bPropagateToChildren; } VisParams;
+     
+        VisParams.bNewVisibility = false;
+        VisParams.bPropagateToChildren = true;
+        OriginalMesh->ProcessEvent_(SetVisibilityFunc, &VisParams);
+     
+        VisParams.bNewVisibility = true;
+        ProcMesh->ProcessEvent_(SetVisibilityFunc, &VisParams);
+        printf("[+] Visibility swapped\n");
+      }
+     
+      // Register
+      static UObject* RegisterFunc = UObject::find_object<UObject>(
+        L"Engine.ActorComponent.RegisterComponent"
+      );
+      if (RegisterFunc) {
+        ProcMesh->ProcessEvent_(RegisterFunc, nullptr);
+      }
+     
+    	auto location = fvector(-0.9434, 0.943392, -2.83019);
+    	auto rotation = frotator(0, 90, -90);
+    	auto scale = fvector(1.5, 1.5, 1.5);
+     
+    	ProcMesh->SetRelativeScale3D(scale);
+    	ProcMesh->K2_SetRelativeRotation(rotation);
+     
+      printf("[+] Custom weapon applied!\n");
+    }
+
+Full credits to @isnq for the CustomSkinLoader
+
+
+
+
+
+Credits
+
+weloveoverprice - XOR decryption routines, function offsets
+Reezli - Offsets, verified offsets
+Denj1 - FName, UE5 struct updates
+Flxxdz - GWorld updates
+ZhoneS - Inventory offsets
+ji666 - Drawing abilities bounds
+BouZe1337 - Bone offset verification
+hanspeter007 - Team check testing
+NightMareElmore - Offset verification
+razorMosca - Function signatures
+DoubleZocker - Testing & confirmation
+Elmasdev - Comprehensive offset list
+simonbasic - PlayerState optimzization
+Ajdin5666 - FName pool verification
+isnq - Custom Skin Loader
+
+Big thanks to everyone contributing in the UC thread.
+Last edited by SmackThatOl; 28th January 2026 at 12:41 AM. 

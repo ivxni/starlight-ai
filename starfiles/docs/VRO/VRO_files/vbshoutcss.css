@@ -1,0 +1,586 @@
+@charset "UTF-8";
+/* CSS Document */
+
+/* VB4 STOLEN STUFF */
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper {
+	padding: 10px 5px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper li {
+	list-style:none outside none;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_window .dbtech_vbshout_shout .memberaction.popupmenu {
+	display: inline-block;
+	position: relative;
+	top: 0;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .memberaction_body.popupbody {
+	background: none repeat scroll 0 0 #FFFFFF;
+	border-radius: 5px 5px 5px 5px;
+	box-shadow: 0 4px 7px #C8C8C8;
+	width: 280px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .popupbody {
+	border: 1px solid #E1E1E1;
+	color: #3E3E3E;
+	font: 11px Tahoma,Calibri,Verdana,Geneva,sans-serif;
+	min-width: 200px;
+	padding: 2px;
+	z-index: 1000;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .popupbody li {
+	border-top: 1px solid #E1E1E1;
+	list-style:none outside none;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .memberaction_body.popupbody li {
+	border: medium none;
+	width: 140px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .memberaction_body.popupbody li.left {
+	clear: left;
+	float: left;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .memberaction_body.popupbody li.right {
+	clear: right;
+	float: right;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .memberaction_body.popupbody li > a {
+	padding: 4px 4px 4px 15px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .memberaction_body.popupbody li > a:hover {
+	background-color: #FFEB90;
+	color: #3E3E3E;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_menucode .popupbody li a, .popupbody li label {
+	background: none repeat scroll 0 0 #FFFFFF;
+	color: #3E3E3E;
+	display: block;
+	text-align: left;
+	text-decoration: none;
+	white-space: nowrap;
+	font: 11px Tahoma,Calibri,Verdana,Geneva,sans-serif;
+}
+
+.dbtech_vbshout_form div.table { display:table; table-layout:fixed; }
+.dbtech_vbshout_form div.thead { width:100%; padding:0; display: table-row; }
+.dbtech_vbshout_form div.tr    { display:table-row; }
+.dbtech_vbshout_form div.td    { display:table-cell; }
+
+
+
+/* VBSHOUT STUFF */
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_vbshout_activeusers {
+	width:120px !important;
+	min-width:120px !important;
+	padding-left:6px;
+	vertical-align:top;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_vbshout_padding {
+	width:6px !important;
+	min-width:6px !important;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shoutarea_left {
+	width:25%;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shoutarea_right {
+	width:25%;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts {
+	width:75%;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_fullshouts {
+	width:100%;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_tabs.alt {
+	position:relative;
+	top:1px;
+	z-index:2;
+	cursor:default;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_tabs.alt2 {
+	border-bottom:1px solid #000;
+	position:relative;
+	top:1px;
+	cursor:pointer;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_vbshout_smallfont {
+	font-size:11px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_tabwrapper {
+	border-bottom:1px solid #000;
+	margin: 0px;
+	padding: 0px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_tabcontainer {
+	margin: 0px;
+	padding: 0px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_tabs {
+	text-align:center;
+	white-space:nowrap;
+	padding:5px;
+	padding-top:3px;
+	padding-bottom:4px;
+	margin-right:6px;
+	border-left:1px solid #000;
+	border-right:1px solid #000;
+	border-top:1px solid #000;
+	font-size:11px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_window {
+	border-left:1px solid #000;
+	border-right:1px solid #000;
+	border-bottom:1px solid #000;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_window .dbtech_vbshout_shout {
+	margin-top: 1px;
+	margin-bottom: 1px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_window .dbtech_vbshout_frame {
+	border:0px !important;
+	display:block;
+	padding:3px;
+	padding-left:5px;
+	overflow:auto;
+	position:relative;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_window .dbtech_vbshout_message_frame {
+	/*position:absolute;
+	padding-bottom:2px;*/
+	width:99%;	
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shoutarea li textarea {
+	width:95%;
+	margin-bottom: 3px;
+}
+
+.editor_controls a.popupctrl.dbtech_vbshout_newchat {
+	background-image:none;
+	padding-right:0;
+	_padding-right:0;
+	border:0;
+}
+
+
+/* VB3 ONLY STUFF */
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .table .tr .td > ul {
+	padding: 0;
+	margin: 0;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .dbtech_vbshout_window .dbtech_vbshout_shout img {
+	vertical-align:middle;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .texteditor .editor .imagebutton_selected,
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .texteditor .editor .imagebutton_down,
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .texteditor .editor .imagebutton_hover {
+	background-color: #E1E1E2;
+	border:none;
+	padding:0;
+	margin:0;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .texteditor .editor .imagebutton_down {
+	background-color: #98B5E2;
+	border: 1px solid #316AC5;
+	padding: 0;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .texteditor .editor .imagebutton_hover {
+	background-color: #C1D2EE;
+	border: 1px solid #316AC5;
+	padding: 0;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .texteditor .editor .imagebutton_selected {
+	background-color: #F1F6F8;
+	border: 1px solid #316AC5;
+	padding: 0;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .dbtech_shouts .texteditor .dbtech_vbshout_wrapper:after {
+	clear: both;
+	content: ".";
+	display: block;
+	height: 0;
+	visibility: hidden;
+}
+
+.dbtech-vbshout-popupmenu {
+	z-index:100;
+	cursor:pointer;
+}
+
+.dbtech-vbshout-popupmenu ul li a {
+	display: block;
+	height: 100%;
+	padding: 0 10px;
+	font:bold 12px/27px Helvetica, Arial, Verdana;
+	color:#4D5355;
+}
+
+.dbtech-vbshout-popupmenu > ul {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: #F1F1F1;
+	z-index: 1100;
+	color: inherit;
+	width:auto;
+	min-width:100px;
+	border:1px solid #B1B1B1;
+	border-top:0;
+	padding: 0;
+	margin: 0;
+	white-space: nowrap;
+}
+
+.dbtech-vbshout-popupmenu ul.submenu li {
+	float: none;
+	white-space: nowrap;
+	border-top:1px solid #FFF;
+	border-bottom:1px solid #C6C7C7;
+	line-height:30px;
+}
+.dbtech-vbshout-popupmenu ul.submenu li.last-item { /*For IE 8's sake*/
+	border-bottom:0;
+}
+.dbtech-vbshout-popupmenu ul.submenu li:hover {
+	background:#C6C7C7;
+}
+.dbtech-vbshout-popupmenu ul.submenu li:first-child {
+	border-top:0;
+}
+.dbtech-vbshout-popupmenu ul.submenu li label {
+	color:#1B1B1B;
+	font-weight:normal;
+	display:block;
+	outline:none;
+	line-height:30px;
+}
+
+
+/* CSS Document */
+
+.formcontrols .blockrow .dbtech_shouts .dbtech_vbshout_tabs.alt {
+}
+
+.formcontrols .blockrow .dbtech_shouts .dbtech_vbshout_tabs.alt2 {
+}
+
+.formcontrols .blockrow .dbtech_shouts .dbtech_vbshout_window .dbtech_vbshout_frame {
+}
+
+.formcontrols .blockrow .dbtech_shouts .dbtech_vbshout_highlight {
+}
+
+
+/* CSS Document */
+
+.dbtech_vbshout_wrapper.texteditor {
+	border-top:none;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .editor_controls {
+	padding:6px 6px 6px 0;
+	float:left;
+	width:100%;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .texteditor .editor. .editor_controls.floatcontrols > ul {
+	clear:left;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .editor_control_group_item {
+	margin-right: 5px; 
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .editor_controls li ,.editor_controls .popupmenu div.popupctrl {
+	_display: inline;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .editor_controls a.popupctrl img,
+.popupmenu .popupbody li img {
+	vertical-align:middle;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .editor_controls a.popupctrl {
+	text-decoration:none;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu > div > img.vbedit_colorbutton {
+	padding-bottom:4px;
+}
+
+.dbtech_vbshout_wrapper .editor_textbox textarea:focus {
+	background-color:#f2f6f8;
+}
+
+.editor_container {
+	float:left;
+	margin-right:-90px;
+	width:100%
+}
+
+.editorpopupbody {
+	max-height:250px;
+	*overflow:auto;
+	overflow-y:auto;
+	overflow-x:hidden;
+}
+
+.popupmenu.sizes .popupbody {
+	min-width:50px;
+	text-align:center;
+}
+
+.popupmenu.colors .popupbody {
+	min-width:144px;
+	width:144px;
+}
+ul.dbtech_vbshout_editor {
+	clear:left;
+	float:left;
+	vertical-align:top;
+	padding:0;
+}
+
+ul.dbtech_vbshout_editor > li {
+	background:url(https://www.unknowncheats.me/forum/dbtech/vbshout/images/editor/separator.gif) no-repeat left;
+	padding-left:6px;
+	float:left;
+	position: relative;
+	list-style:none outside none;
+}
+
+ul.dbtech_vbshout_editor > li:first-child {
+	background-image:none;
+	padding-left:0px;
+}
+
+ul.dbtech_vbshout_editor > li .vbedit_colorbar {
+	position:absolute;
+	background-color:black;
+	top:15px;
+	left:6px;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu div.popupctrl {
+	height:18px;
+	border:1px solid #E1E1E1;
+	color:#000000;
+	line-height:17px;
+	background-color:#FFFFFF;
+	padding-right:10px;
+	background-image:url(https://www.unknowncheats.me/forum/dbtech/vbshout/images/misc/popupctrl.png);
+	background-position:right center;
+	background-repeat:no-repeat;
+	padding: 1px;
+	padding-right: 10px;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu ul.submenu li {
+	list-style:none outside none;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu ul.submenu li.colorbutton {
+	border: 0 none;
+	float: left;
+	margin:1px;
+	border:0;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu ul.submenu li.colorbutton div {
+	border:1px solid #ACA899;
+	height:10px;
+	width:10px;
+	margin:2px;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .popupbody {
+	background:#FFFFFF;
+	border: 1px solid #C4C4C4;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu ul.editorpopupbody li.fontsize,
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu ul.editorpopupbody li.fontname {
+	padding:1px;
+	border-top:none;
+	/*font-size:14px;*/
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu ul.editorpopupbody li > a {
+	padding:1px 30px 1px 3px;
+	overflow:hidden;
+	background:none;
+	-moz-border-radius:0;
+	-webkit-border-radius:0;
+	border-radius:0;
+	color:#000000;
+	font:inherit;
+	text-decoration:none;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu ul.editorpopupbody li > a:hover {
+	color:#000000;
+}
+
+.popupmenu.colors {
+	position:relative;
+}
+
+.popupmenu.fonts div.popupctrl {
+	width:91px;
+}
+
+.popupmenu.sizes div.popupctrl {
+	width:45px;
+}
+
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .editor_controls a.popupctrl {
+	border:1px solid #E1E1E1;
+	height:18px;
+	line-height:17px;
+}
+
+.popupmenu.imagemenu div.popupctrl, .editor_controls .popupmenu .popupctrl {
+	padding:1px;
+	padding-right: 10px;
+	/*background-color: url(js/ckeditor/skins/kama/images/sprites.png) repeat-x 0px -500px;*/
+	border:none;
+}
+
+.popupmenu.imagemenu div.popupctrl.dbtech-vbshout-popupmenu-active {
+	padding:0px;
+	padding-right:10px;
+	margin-right:-1px;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu.menubutton.fonts .popupctrl.dbtech-vbshout-popupmenu div,
+ul.dbtech_vbshout_editor > li.popupmenu.menubutton.sizes .popupctrl.dbtech-vbshout-popupmenu div {
+	font-size:11px;
+	font-family:tahoma;
+	overflow:hidden;
+	white-space:nowrap;
+	padding:0 3px 0 3px;
+	_display:inline;
+}
+
+ul.dbtech_vbshout_editor > li img.imagebutton_selected,
+ul.dbtech_vbshout_editor > li img.imagebutton_hover,
+ul.dbtech_vbshout_editor > li img.imagebutton_down,
+.dbtech_vbshout_form .dbtech_vbshout_wrapper .editor_controls a.popupmenu {
+	padding:0;
+	margin:0;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu.colors .dbtech-vbshout-popupmenu.popupctrl.dbtech-vbshout-popupmenu-active ul.editorpopupbody li.imagebutton_hover {
+	background-color: #C1D2EE;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .dbtech-vbshout-popupmenu.popupctrl.dbtech-vbshout-popupmenu-active,
+ul.dbtech_vbshout_editor > li.popupmenu.fonts .dbtech-vbshout-popupmenu.popupctrl.dbtech-vbshout-popupmenu-active ul.editorpopupbody li.imagebutton_hover,
+ul.dbtech_vbshout_editor > li.popupmenu.sizes .dbtech-vbshout-popupmenu.popupctrl.dbtech-vbshout-popupmenu-active ul.editorpopupbody li.imagebutton_hover,
+ul.dbtech_vbshout_editor > li img.imagebutton_selected,
+ul.dbtech_vbshout_editor > li img.imagebutton_down,
+ul.dbtech_vbshout_editor > li img.imagebutton_hover {
+	background-color: #C1D2EE;
+	border: 1px solid #6B91AB;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.dbtech-vbshout-popupmenu-active {
+	padding-right: 10px;
+	margin: 0;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.imagebutton_hover {
+	padding-right: 10px;
+	margin-right: -1px;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu.menubutton div.popupctrl.dbtech-vbshout-popupmenu-active,
+ul.dbtech_vbshout_editor > li.popupmenu.menubutton div.popupctrl ul.editorpopupbody > li.imagebutton_hover,
+	padding: 1px;
+	padding-right: 10px;
+	margin-right: 0;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.dbtech-vbshout-popupmenu-active div,
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.imagebutton_hover div {
+	font-size: 11px;
+	font-family: tahoma;
+	overflow: hidden;
+	white-space: nowrap;
+	padding: 0 3px;
+	_display: inline;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.dbtech-vbshout-popupmenu-active,
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.imagebutton_hover,
+ul.dbtech_vbshout_editor > li img.imagebutton_hover {
+	background-color: #C1D2EE;
+	border: solid 1px #6B91AB;
+	padding: 0;
+}
+
+ul.dbtech_vbshout_editor > li img.imagebutton_selected {
+	background-color: #F1F6F8;
+	border: solid 1px #6B91AB;
+	padding: 0;
+}
+
+ul.dbtech_vbshout_editor > li img.imagebutton_down {
+	background-color: #97B5E2;
+	border: solid 1px #6B91AB;
+	padding: 0;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.dbtech-vbshout-popupmenu-active {
+	padding-right: 10px;
+	margin: 0;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu .popupctrl.imagebutton_hover {
+	padding-right: 10px;
+	margin-right: -1px;
+}
+
+ul.dbtech_vbshout_editor > li.popupmenu.fonts div.popupctrl.dbtech-vbshout-popupmenu-active,
+ul.dbtech_vbshout_editor > li.popupmenu.fonts div.popupctrl.imagebutton_hover,
+ul.dbtech_vbshout_editor > li.popupmenu.sizes div.popupctrl.dbtech-vbshout-popupmenu-active,
+ul.dbtech_vbshout_editor > li.popupmenu.sizes div.popupctrl.imagebutton_hover {
+	padding: 1px;
+	padding-right: 10px;
+	margin-right: 0;
+}

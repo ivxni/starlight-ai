@@ -1,0 +1,40 @@
+# Starlight - AI Object Detection Aim Assistant
+# Requires Python 3.10.x
+
+# UI Framework
+PyQt6>=6.6.0
+
+# Numerical & Image Processing
+numpy>=1.24.0
+opencv-python>=4.8.0
+
+# Screen Capture
+mss>=9.0.0
+bettercam>=1.0.0  # Maintained fork of dxcam with stability fixes
+
+# ============================================
+# AI INFERENCE BACKENDS
+# ============================================
+
+# ONNX Runtime with DirectML (Default - Works on all GPUs)
+onnxruntime-directml>=1.16.0
+
+# TensorRT (NVIDIA GPUs - Maximum Performance)
+# Requires CUDA Toolkit 12.x installed first
+# Install with:
+#   pip install tensorrt --extra-index-url https://pypi.nvidia.com
+#   pip install cuda-python
+
+# OpenVINO (Intel CPUs/iGPUs/NPU - Optional)
+# Install with:
+#   pip install openvino>=2024.0.0
+
+# ============================================
+# Input Handling
+# ============================================
+pynput>=1.7.6
+keyboard>=0.13.5
+pyserial>=3.5  # Arduino HID mouse support
+
+# Windows API
+pywin32>=306

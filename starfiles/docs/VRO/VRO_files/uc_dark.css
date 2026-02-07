@@ -1,0 +1,566 @@
+
+:root {
+	--background-colour: #0a0a0a;
+	--background-colour-lighter-1: #181818;
+	--background-colour-lighter-2: #202020;
+	--background-colour-lighter-3: #363636;
+	--thead-background: linear-gradient(to bottom, #3a3a3a 0%, #171717 100%);
+	--tcat-background: #2a2a2a;
+	--border: 1px #404040 !important;
+	--a-colour: #a7a7a7;
+	--a-hover-colour: #ffffff;
+	--thread-unread-colour: #dfdfdf;
+	--text-colour: #e6e6e6;
+	
+	--button-filter: brightness(90%) grayscale(100%) contrast(200%) invert(100%);
+	
+	/* rank colours shit */
+	--rank-member2: #fff;
+	--rank-member3: #ccc;
+	--rank-motm: #cc00cc;    
+	--rank-donator: #00ff00;
+        --rank-jfmod: #92B0FF;
+	--rank-fmod: #799FFF;
+        --rank-sfmod: #6060FF;
+	--rank-sadmin: #6F0000;
+        --rank-fadmin: #6F0000;
+}
+body div.livetopic-editnotice {
+    background-color: #4c3c00;
+    border: 1pt dashed #775e00;
+}
+ 
+img[alt='live topic'] {
+    filter: var(--button-filter);
+}
+#Table6 > tbody > * > td > a > font,
+#Table6 > tbody > * > td > font {
+ 	color: var(--a-colour);
+}
+
+#Table6 > tbody > * > td > a > font:hover {
+ 	color: var(--a-colour-hover);   
+}
+/* swap read and unread icons */
+img[src$='ambience/statusicon/subforum_old.gif'] {
+    content: url('/forum/ambience/statusicon/subforum_new.gif');
+}
+img[src$='ambience/statusicon/subforum_new.gif'] {
+    content: url('/forum/ambience/statusicon/subforum_old.gif');
+}
+a[id^='thread_title_'][style='font-weight:bold'] {
+	color: var(--thread-unread-colour) !important;
+}
+img[onload^='NcodeImageResizer.createOn'] {
+	filter: none !important;   
+}
+.dbtech_vbshout_shout > span:nth-child(4) {
+	color: var(--text-colour) !important;   
+}
+hr {
+	border-color: var(--background-colour-lighter-3);
+}
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select {
+	border: 1px solid var(--background-colour-lighter-3);
+	background: var(--background-colour-lighter-2);
+	color: #fff;
+	height: 2em;
+}
+select[name="prefixchoice[]"] {
+	height: 75px;   
+}
+select[name="forumchoice[]"] {
+	height: 215px;   
+}
+#show_spoil {
+	background: var(--background-colour-lighter-3) !important;
+	border: var(--border) !important;
+}
+span[style*="color: #2d7009"] {
+	color: var(--rank-donator) !important;
+}
+span[style*="color: #628EFF"] {
+	color: var(--rank-jfmod) !important;
+}
+span[style*="color: #000080"] {
+	color: var(--rank-fmod) !important;
+}
+span[style*="color: #0000FF"] {
+	color: var(--rank-sfmod) !important;
+}
+/* lvl 2 */
+span[style*="color: #000000"] {
+	color: var(--rank-member2) !important;
+}
+/* lvl 3 */
+span[style*="color: #2F4F4F"] {
+	color: var(--rank-member3) !important;
+}
+span[style*="color: #af00af"] {
+	color: var(--rank-motm) !important;
+}
+table[bgcolor="#F7F7F7"] {
+	background: var(--background-colour);
+	border: none;
+}
+table[style*="background-color: #F7F7F7"] {
+	background: var(--background-colour) !important;
+	border: none !important;
+}
+table[style*="background-color: #f7f7f7"]:not(#navbar) {
+	background: var(--background-colour) !important;
+	border: none !important;
+}
+span[style*="color: black"] {
+	color: var(--text-colour) !important;
+}
+
+#navbar {
+    filter: var(--button-filter);
+}
+
+font[color="black"] {
+	color: var(--text-colour);
+}
+
+legend {
+	color: var(--text-colour);
+}
+td[style="background:#F0F1F3;color:#000000"] {
+	background: var(--background-colour) !important;   
+}
+body > div > table > tbody > tr > td > table:nth-child(2),
+img[title="Reply"],
+img[title="Post New Thread"],
+img[title="Edit/Delete Message"],
+img[title="Reply With Quote"],
+img[title="Multi-Quote This Message"],
+img[title="Quick reply to this message"],
+img[src$="rep_button_pos.png"], 
+img[src$="threadclosed.gif"],
+img[src$="rep_button_neg.png"],
+img[src$="paperclip.gif"],
+img[src$="motm_button.png"],
+img[src$="motm_nominate.png"],
+img[src*="ambience/editor/"],
+img[src*="ambience/statusicon/"],
+img[src$="report.png"],
+img[src$="medal-rev.gif"] {
+	filter: var(--button-filter);
+}
+.tab_list .tborder {
+	color: var(--text-colour);   
+}
+img[src$='ambience/misc/forum_banner.png'] {
+	content: url(/forum/ambience/misc/forum_banner_dark.png?v=1);   
+}
+
+img[src$='ambience/misc/forum_banner_x.png'] {
+	content: url(/forum/ambience/misc/forum_banner_x_dark.png?v=1);   
+}
+img[src$='ambience/misc/ucdownloads.png'] {
+	content: url(/forum/ambience/misc/ucdownloads_dark.png?v=1);
+}
+table.ncode_imageresizer_warning {
+	background: #505050;
+	color: #fff;
+	border: 1px solid #636363;
+}
+#checkbox-button {
+	color: #000;
+}
+#forumhome_icons_shit {
+	background-color: var(--background-colour-lighter-1) !important;   
+}
+.bginput {
+	color: #fff;
+	background: var(--background-colour-lighter-3);
+	border: none;
+	padding: 4px;
+	/* box-sizing: border-box; */
+	border-radius: 2px;
+}
+.fjdpth0 {
+	background: var(--background-colour-lighter-3);
+	color: var(--text-colour);
+}
+/* [info] bbcode fix */
+div[style="margin-bottom: 10px; background: #b2ccff; padding: 6px; height:auto; border: 2px solid #80aaff; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;"] {
+	background: #152337 !important;
+	border: 2px solid #608acf !important;
+}
+/* [warning] bbcode fix*/
+div[style="margin-bottom: 10px; background: #ffe5b2; padding: 6px; height:auto; border: 2px solid #ffd580; border-radius: 5px; -moz-border-radius: 5px; -webkit-border-radius: 5px;"] {
+	background: #371515 !important;
+	border: 2px solid #cf6060 !important;
+}
+fieldset[style*="padding:6px;font-weight:bold;margin-left:15px;margin-right:15px;"]{
+	color: #000;   
+}
+a:visited,
+body_avisited,
+a:link,
+body_alink,
+form[action="https://www.unknowncheats.me/forum/index.php"] a {
+	color: var(--a-colour) !important;
+	transition: color 0.3s ease;
+}
+a:hover,
+form[action="https://www.unknowncheats.me/forum/index.php"] a:hover {
+	color: var(--a-hover-colour) !important;
+}
+.page,
+.tfoot,
+.tcat,
+body {
+	background: var(--background-colour);
+	color: #ededed;
+}
+/* fix user profile pagination from having weird backgrounds */
+div[id^="#collapseobj_"] {
+	background: var(--background-colour-lighter-1);   
+}
+.alt1,
+.alt1Active,
+.alt2,
+.alt2Active {
+	background: var(--background-colour-lighter-1);
+	color: var(--text-colour);
+	border: none;
+}
+.alt1 hr[style*="background-color: #181B16"],
+.alt2 hr[style*="background-color: #181B16"] {
+	background-color: #404040 !important;
+}
+.smallfont,
+.time {
+	color: var(--text-colour);
+}
+.panelsurround,
+.panel,
+.thead,
+.vbmenu_control {
+	background: var(--background-colour-lighter-1);
+	color: var(--text-colour);
+	border: none;
+}
+.vbmenu_popup {
+	background: var(--background-colour);
+}
+.vbmenu_popup .vbmenu_option {
+	background: var(--background-colour-lighter-2);
+}
+textarea {
+	background: var(--background-colour-lighter-3);
+	border: 1px #0a0a0a;
+	color: var(--text-colour) !important;
+}
+.vBulletin_editor {
+	background: var(--background-colour-lighter-2) !important;
+	border: 1px !important;
+}
+
+/* fucking vb, need to fix this properly */
+.imagebutton {
+	background: var(--background-colour-lighter-2) !important;
+}
+.imagebutton:hover {
+	background: var(--background-colour-lighter-3) !important;
+	border: var(--border);
+}
+.alt_pickbutton:hover {
+	border: var(--border);
+}
+
+/* todo: fix this so it uses css and not this gay shit, smh */
+.vbmenu_popup .vbmenu_hilite,
+.vbmenu_popup .vbmenu_hilite a {
+	background: var(--background-colour-lighter-3);
+	color: #ededed;
+}
+.vbmenu_popup .vbmenu_option a,
+.vbmenu_popup .vbmenu_option {
+	color: #ededed;
+}
+.vbmenu_control a:hover,
+.vbmenu_control a:active,
+.vbmenu_control_ahover {
+	color: #85a6ff;
+}
+.vbmenu_control a:link,
+.vbmenu_control_alink {
+	color: #76abff;
+}
+
+.info,
+.info font[color="black"] {
+	background: var(--background-colour-lighter-1);
+	color: #f0f0f0;
+}
+.info {
+	border: 2px solid var(--background-colour-lighter-3);
+}
+.info a[style*="color: black"] {
+	color: var(--text-colour) !important;
+}
+span[style*="color: #26353F"] {
+	color: var(--text-colour) !important;
+}
+
+.thead,
+.tcat {
+	background: var(--thead-background);
+	color: var(--text-colour);
+}
+.tcat a {
+	color: var(--text-colour) !important;
+}
+.tcat {
+	background: var(--tcat-background);
+}
+.thead a:visited,
+.thead_avisited,
+.thead a:link,
+.thead_alink {
+	color: #fff !important;
+}
+.tborder {
+	color: var(--text-colour);
+	border: 1px solid #5a5a5a;
+	background: var(--background-colour-lighter-3);
+}
+.navbar {
+	color: var(--text-colour);
+}
+table[style="background-color: #FDFDFD;"] {
+	background: #0a0a0a !important;
+}
+img[src$="trans.gif"] {
+	display: none;   
+}
+/* [postcount] */
+#postcount_bbcode {
+	background-color: #000 !important;
+	border-color: #4c4c4c;
+}
+
+/* selected posts in post queue */
+.inlinemod {
+	background: #484848;
+}
+
+img[src$="/forum/images/smilies/white.png"] {
+	filter: contrast(100%) !important;
+}
+
+/* "Logged in" test for UCA */
+span#quickModBar-modcpLoginStatus > span {
+	color: #2ae22a !important;
+}
+
+/* darken UCA mod bar */
+#quickModBar, .quickModBar-queueStatCss {
+	background: #000;
+}
+
+@keyframes ucmodstatsglow {
+	50% {
+		background: #7b2020;
+		box-shadow: 0 0 20px #FF7575;
+	}
+}
+
+/* fieldset border (eg quick reply options) */
+.fieldset, .fieldset td, .fieldset p, .fieldset li {
+	border-color: #5a5a5a;
+}
+
+/* uca inline delete/reason */
+div > table.tborder > tbody > tr > td > img,
+div > table.tborder > tbody > tr > td > input {
+	filter: var(--button-filter);
+}
+
+/* make new post indicator in thread list white */
+table#threadslist.tborder > tbody > tr > td:nth-of-type(3) > div:first-of-type > a > img {
+	filter: invert(100%);
+}
+
+/* some border stuff */
+td.alt2[style="border:1px inset"] {
+	border: 1px #656565 solid !important;
+}
+.alt2[style="margin:6px 0px 6px 0px; padding:6px; border:2px groove"] {
+	border: 0 !important;
+}
+
+/* approve/unapprove buttons in the post queue page */
+.alt2+div img,
+.alt2+div input {
+	filter: var(--button-filter);
+}
+/* wtf */
+form[action="https://www.unknowncheats.me/forum/index.php"] center {
+	color: #fff;
+	background: #0a0a0a;
+}
+
+/* make the buttons on the portal page dark */
+tbody[id^="collapseobj_module_"] tr.alt2 img {
+    filter: var(--button-filter);
+}
+
+/* VM buttons */
+ul.list_no_decoration.controls input,
+ul.list_no_decoration.controls img {
+    filter: var(--button-filter);
+}
+
+
+/* [code] */
+/*! Color themes for Google Code Prettify | MIT License | github.com/jmblog/color-themes-for-google-code-prettify */
+.prettyprint {
+	background: #1d1f21;
+	font-family: Consolas, monospace;
+	border: 1px var(--background-colour-lighter-2) solid !important;
+}
+.pln {
+	color: #c5c8c6;
+}
+/* Specify class=linenums on a pre to get line numbering */
+ol.linenums {
+	margin-top: 0;
+	margin-bottom: 0;
+	color: #969896;
+	background: var(--background-colour-lighter-2);
+}
+li.L0,
+li.L1,
+li.L2,
+li.L3,
+li.L4,
+li.L5,
+li.L6,
+li.L7,
+li.L8,
+li.L9 {
+	padding-left: 1em;
+	background-color: #1d1f21;
+	list-style-type: decimal;
+}
+
+.lang-glow {
+  color: #fff;
+  text-align: center;
+  -webkit-animation: glow 1s ease-in-out infinite alternate;
+  -moz-animation: glow 1s ease-in-out infinite alternate;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+  }
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+  }
+}
+
+.rotate {
+  animation: rotation 8s infinite linear;
+}
+
+@keyframes rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(359deg);
+  }
+}
+
+.lang-flip {
+	-webkit-animation: flip-horizontal-bottom 3s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+	        animation: flip-horizontal-bottom 3s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+
+@-webkit-keyframes flip-horizontal-bottom {
+  0% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+  }
+  100% {
+    -webkit-transform: rotateX(-180deg);
+            transform: rotateX(-180deg);
+  }
+}
+
+@keyframes flip-horizontal-bottom {
+  0% {
+    -webkit-transform: rotateX(0);
+            transform: rotateX(0);
+  }
+  100% {
+    -webkit-transform: rotateX(-180deg);
+            transform: rotateX(-180deg);
+  }
+}
+
+.donator-box {
+  background: rgba(58, 223, 0, .1) !important;
+}
+
+img[src$="wny.png"] {
+	-webkit-filter: grayscale(1) invert(1);
+	filter: grayscale(1) invert(1);
+}
+
+@media screen {
+	/* string content */
+	.str {
+		color: #b5bd68;
+	}
+	/* keyword */
+	.kwd {
+		color: #b294bb;
+	}
+	/* comment */
+	.com {
+		color: #969896;
+	}
+	/* type name */
+	.typ {
+		color: #81a2be;
+	}
+	/* literal value */
+	.lit {
+		color: #de935f;
+	}
+	/* punctuation */
+	.pun {
+		color: #c5c8c6;
+	}
+	/* lisp open bracket */
+	.opn {
+		color: #c5c8c6;
+	}
+	/* lisp close bracket */
+	.clo {
+		color: #c5c8c6;
+	}
+	/* markup tag name */
+	.tag {
+		color: #cc6666;
+	}
+	/* markup attribute name */
+	.atn {
+		color: #de935f;
+	}
+}
+
+#githubwarning {
+    background-color: var(--background-colour-lighter-3) !important;
+}
